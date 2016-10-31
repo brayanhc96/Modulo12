@@ -76,7 +76,6 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-
     }
 
     public void getFbKeyHash(String packageName){
