@@ -30,17 +30,19 @@ import android.content.pm.Signature;
 
 public class MainActivity extends ActionBarActivity {
 
+    private PublisherAdView publisherAdView;
     private CallbackManager cM;
     private LoginButton lB;
-    private PublisherAdView publisherAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         cM = CallbackManager.Factory.create();
-
+        getFbKeyHash("2SUkDCEM6T/vKAAmolnu5Vbcpbg=");
         setContentView(R.layout.activity_main);
 
         publisherAdView = (PublisherAdView) findViewById(R.id.ad_view);
@@ -48,6 +50,8 @@ public class MainActivity extends ActionBarActivity {
         publisherAdView.loadAd(adRequest);
 
         lB = (LoginButton)findViewById(R.id.login_facebook);
+
+
 
         lB.registerCallback(cM, new FacebookCallback<LoginResult>() {
             @Override
@@ -71,6 +75,7 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
+
 
     }
 
@@ -96,14 +101,13 @@ public class MainActivity extends ActionBarActivity {
     protected void onActivityResult(int reqCode, int resCode, Intent i){
         cM.onActivityResult(reqCode, resCode, i);
     }
-//Banner
-@Override
-protected void onDestroy() {
-    if(publisherAdView != null){
-        publisherAdView.destroy();
+    @Override
+    protected void onDestroy() {
+        if(publisherAdView != null){
+            publisherAdView.destroy();
+        }
+        super.onDestroy();
     }
-    super.onDestroy();
-}
 
     @Override
     protected void onResume() {
